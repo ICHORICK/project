@@ -8,13 +8,13 @@ from django.shortcuts import render
 from .models import Dish
 
 def home(request):
-    popular_dishes = Dish.objects.filter(is_available=True)[:5]
-    return render(request, 'home.html', {'popular_dishes': popular_dishes})
+    #popular_dishes = Dish.objects.filter(is_available=True)[:5]
+    return render(request, 'order/home.html', {'popular_dishes': 5})
 
 
 def menu(request):
     categories = Category.objects.all()
-    return render(request, 'menu.html', {'categories': categories})
+    return render(request, 'order/menu.html', {'categories': categories})
 
 def add_to_cart(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
