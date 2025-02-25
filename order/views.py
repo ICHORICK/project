@@ -1,20 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
-
-
-from django.shortcuts import render
-from .models import Dish
 
 def home(request):
     #popular_dishes = Dish.objects.filter(is_available=True)[:5]
     return render(request, 'order/home.html', {'popular_dishes': 5})
 
 
-def menu(request):
-    categories = Category.objects.all()
-    return render(request, 'order/menu.html', {'categories': categories})
+class DishListView(ListView):
+    model = Dish
+    context_object_name = 'dishes'
 
 def add_to_cart(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
@@ -28,3 +25,7 @@ def cart(request):
     total_price = sum(item.get_total_price() for item in cart_items)
     return render(request, 'cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
+
+class DishDetailView(DetailView):
+    model = Dish
+    context_object_name = 'dish'

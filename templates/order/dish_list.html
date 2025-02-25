@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for dish in dishes %}
+<p><a href="{% url 'dish-detail' dish.pk %}">{{ dish.name }}</a></p>
+<p>{{ dish.description }}</p>
+<img src="{{ dish.image.url }}">
+{% endfor %}
+{% endblock %}
